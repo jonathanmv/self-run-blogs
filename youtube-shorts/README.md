@@ -1,6 +1,6 @@
-Agents for [Healthy Home Office](https://healthy-home-office.com)
+Agents to generate YouTube Short videos
 
 ## References
 
-- https://flowgpt.com/p/kate-personal-seo-content-manager
-  Here's the link to the [conversation](https://flowgpt.com/c/a565131a-771d-4c0b-99cd-3f3449a641c4)
+- https://www.youtube.com/watch?v=lqXWVzWkkyc
+- https://flowgpt.com/p/youtube-shorts-trivia-generator
