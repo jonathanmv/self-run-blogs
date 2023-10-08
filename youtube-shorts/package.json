@@ -1,0 +1,19 @@
+{
+  "name": "youtube-shorts",
+  "version": "1.0.0",
+  "description": "Agents to generate YouTube Short videos",
+  "main": "get-image-urls.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserless": "^10.1.16",
+    "lodash": "^4.17.21",
+    "puppeteer": "^21.3.8",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}
