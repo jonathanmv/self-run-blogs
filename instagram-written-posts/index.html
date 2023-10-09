@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap">
+
+        <style>
+            body {
+                margin: 0 2rem;
+                background: linear-gradient(to right, #ff416c, #ff4b2b);
+            }
+            /* Center the box */
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            /* Style the box */
+            .box {
+                background-color: #f2f2f2;
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+                text-align: center;
+            }
+            /* Set the font for h1 */
+            h1 {
+                font-family: 'Young Serif', sans-serif;
+            }
+            /* Set the font for p */
+            p {
+                font-family: 'PT Serif', serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box">
+                <h1>Title</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, sapien vel bibendum bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel bibendum sapien.</p>
+            </div>
+        </div>
+        <script>
+            function readTextFromSearchQuery() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const title = document.querySelector('h1');
+                const paragraph = document.querySelector('p');
+                title.innerText = urlParams.get('t');
+                paragraph.innerText = urlParams.get('p');
+            }
+
+            function changeBackgroundColor() {
+                const body = document.querySelector('body');
+                let colors = ['#ff416c', '#ff4b2b', '#00bfff', '#00ff7f', '#ff1493', '#9400d3'];
+                let index = 0;
+                setInterval(() => {
+                    const direction = Math.floor(Math.random() * 360); // generate a random degree between 0 and 359
+                    const gradient = `linear-gradient(${direction}deg, ${colors[index]}, ${colors[(index + 1) % colors.length]})`;
+                    body.style.transition = 'background 0.5s ease-in-out'; // added transition property
+                    body.style.background = gradient;
+                    index = (index + 1) % colors.length;
+                }, 1000);
+            }
+
+            readTextFromSearchQuery();
+            changeBackgroundColor();
+        </script>
+    </body>
+</html>
