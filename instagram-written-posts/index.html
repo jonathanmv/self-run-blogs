@@ -6,9 +6,14 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap">
 
         <style>
+            html {
+                background: none;
+            }
+
             body {
                 margin: 0 2rem;
-                background: linear-gradient(to right, #ff416c, #ff4b2b);
+                /* background: linear-gradient(to right, #ff416c, #ff4b2b); */
+                background: none;
             }
             /* Center the box */
             .container {
@@ -47,9 +52,10 @@
             function readTextFromSearchQuery() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const title = document.querySelector('h1');
-                const paragraph = document.querySelector('p');
+                const p = document.querySelector('p');
+
                 title.innerText = urlParams.get('t');
-                paragraph.innerText = urlParams.get('p');
+                p.innerText = urlParams.get('p');
             }
 
             function changeBackgroundColor() {
@@ -66,7 +72,7 @@
             }
 
             readTextFromSearchQuery();
-            changeBackgroundColor();
+            // changeBackgroundColor();
         </script>
     </body>
 </html>
