@@ -50,7 +50,7 @@ nav, main {
 	margin: auto;
 }
 main{
-	padding: 3em 1em;
+	padding: 1em;
 }
 h1,
 h2,
@@ -166,10 +166,34 @@ li {
 
 @media (max-width: 720px) {
 	body {
+		/* color: lime; */
+		/* background-color: red; */
 		font-size: 12px;
 	}
-	main {
-		padding: 1em;
+	nav, main {
+		/* width: 100%;
+		max-width: 100%; */
+		/* background-color: green; */
+
+	}
+	.prose {
+		/* background-color: blue; */
+	}
+}
+
+@media print {
+	body {
+		font-size: 12px;
+		/* background-color: red; */
+	}
+	nav, main {
+		/* width: 100%;
+		max-width: 100%; */
+		/* background-color: green; */
+	}
+
+	.paper-margins {
+		/* display: none; */
 	}
 }
 

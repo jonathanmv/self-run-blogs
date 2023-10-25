@@ -33,15 +33,11 @@ const background = heroImage ? `url('${heroImage}')` : "none";
     </style>
 
     <style>
-      main {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 2em 0em;
-      }
       article {
         display: flex;
         align-items: stretch;
         margin: auto;
+        /* background-color: blueviolet; */
       }
 
       .left {
@@ -85,10 +81,14 @@ const background = heroImage ? `url('${heroImage}')` : "none";
       .last-updated-on {
         font-style: italic;
       }
+      .paper-margins {
+        position: relative;
+      }
     </style>
   </head>
 
   <body>
+    <div class="paper-margins"></div>
     <RecipeHeader title={title} />
     <main>
       <article>
@@ -111,5 +111,70 @@ const background = heroImage ? `url('${heroImage}')` : "none";
       </article>
     </main>
     <RecipeFooter />
+    <script>
+      const getDPI = () => {
+        const div = document.createElement("div");
+        div.style.width = "1in";
+        div.style.height = "1in";
+        div.style.position = "absolute";
+        div.style.left = "-100%";
+        div.style.top = "-100%";
+        document.body.appendChild(div);
+        const dpi = div.offsetHeight;
+        document.body.removeChild(div);
+        return dpi;
+      };
+
+      const dpi = getDPI();
+      const a4InPixels = {
+        width: Math.ceil(dpi * 8.27),
+        height: Math.ceil(dpi * 11.69),
+      };
+
+      const pageOverlayStyle = (pageNumber: number) => `
+          position: absolute;
+          top: ${pageNumber * a4InPixels.height - 2}px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(255, 0, 0, 0.1);
+          margin: 0 auto;
+          border-bottom: 1px solid cyan;
+          width: ${a4InPixels.width - 2}px;
+          height: ${a4InPixels.height - 2}px;
+        `;
+
+      const paperMargins = document.querySelector(".paper-margins");
+      if (!paperMargins) {
+        alert('No ".paper-margins" element found');
+        throw new Error('No ".paper-margins" element found');
+      }
+
+      const pages = Math.ceil(document.body.scrollHeight / a4InPixels.height);
+      if (pages < 1) {
+        alert("No content to print");
+        throw new Error("No content to print");
+      }
+
+      for (let i = 0; i < pages; i++) {
+        const margins = document.createElement("div");
+        margins.setAttribute("style", pageOverlayStyle(i));
+        const text = document.createElement("p");
+        text.textContent = `Page ${i + 1} - A4 size: ${a4InPixels.width} x ${
+          a4InPixels.height
+        } - DPI: ${dpi} - Scrollable height: ${
+          document.body.scrollHeight
+        } - Scrollable width ${document.body.scrollWidth} - Pages: ${pages}`;
+        margins.appendChild(text);
+        // paperMargins.appendChild(margins);
+      }
+
+      const main = document.querySelector("main");
+      if (!main) {
+        alert('No "main" element found');
+        throw new Error('No "main" element found');
+      }
+      // main.style.width = `calc(${a4InPixels.width}px - 2em)`;
+    </script>
   </body>
 </html>
