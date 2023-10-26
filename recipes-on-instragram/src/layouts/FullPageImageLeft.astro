@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "./RecipeBase.astro";
-const { title, heroImage } = Astro.props.frontmatter;
+const { title, madeFor, heroImage } = Astro.props.frontmatter;
 const props = Astro.props;
 const background = heroImage ? `url('${heroImage}')` : "none";
+const today = new Date();
 ---
 
 <BaseLayout {...props}>
@@ -53,6 +54,13 @@ const background = heroImage ? `url('${heroImage}')` : "none";
     article {
       padding: 3em;
     }
+
+    footer {
+      margin-top: 3em;
+      text-align: center;
+      font-size: 0.8em;
+      color: rgb(var(--gray-dark));
+    }
   </style>
   <style is:global>
     ul {
@@ -69,6 +77,11 @@ const background = heroImage ? `url('${heroImage}')` : "none";
       <article>
         <slot />
       </article>
+
+      <footer>
+        Made for {madeFor} by COOKBOOKIA &copy; {today.getFullYear()}. All
+        rights reserved.
+      </footer>
     </div>
   </main>
 </BaseLayout>
