@@ -2,9 +2,23 @@
 import BaseLayout from "./RecipeBase.astro";
 const { title, heroImage } = Astro.props.frontmatter;
 const props = Astro.props;
+const background = heroImage ? `url('${heroImage}')` : "none";
 ---
 
 <BaseLayout {...props}>
+  <style define:vars={{ background }}>
+    div.image-container {
+      background-image: var(--background);
+
+      /* Full height */
+      height: 100vh;
+
+      /* Center and scale the image nicely */
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
   <style>
     @page {
       size: A4;
@@ -12,18 +26,8 @@ const props = Astro.props;
     }
 
     @media print {
-      body {
-        background-color: tomato;
-      }
-      article {
-        margin: 0.5in;
-        padding: 0 !important;
-        background-color: cadetblue;
-      }
-      div.text-container {
-        background-color: white;
-        padding: 1em;
-        margin: 0;
+      div.page {
+        margin: 0.75in 0.5in;
       }
     }
 
@@ -31,22 +35,40 @@ const props = Astro.props;
       page-break-after: always;
       break-after: always;
     }
+  </style>
+  <style>
+    header {
+      margin: 0;
+      border-bottom: 1px solid rgb(var(--gray-dark));
+    }
+
+    h1 {
+      margin: 0 0 0.5em 0;
+      font-size: 1.6em;
+      letter-spacing: 0.5em;
+      font-weight: lighter;
+      text-align: center;
+    }
 
     article {
-      padding: 1em;
-      /* page-break-before: always;
-      break-before: page;
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact; */
+      padding: 3em;
     }
   </style>
-  <div class="image-container">
-    <img width="100%" height="100%" src={heroImage} alt={title} />
-  </div>
-  <article>
-    <div class="text-container">
-      <slot />
+  <style is:global>
+    ul {
+      max-width: 60%;
+    }
+  </style>
+
+  <main>
+    <div class="image-container"></div>
+    <div class="page">
+      <header>
+        <h1>{title}</h1>
+      </header>
+      <article>
+        <slot />
+      </article>
     </div>
-  </article>
-  <script src="./helper.ts"></script>
+  </main>
 </BaseLayout>
