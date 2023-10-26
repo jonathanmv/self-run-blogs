@@ -1,0 +1,52 @@
+---
+import BaseLayout from "./RecipeBase.astro";
+const { title, heroImage } = Astro.props.frontmatter;
+const props = Astro.props;
+---
+
+<BaseLayout {...props}>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: tomato;
+      }
+      article {
+        margin: 0.5in;
+        padding: 0 !important;
+        background-color: cadetblue;
+      }
+      div.text-container {
+        background-color: white;
+        padding: 1em;
+        margin: 0;
+      }
+    }
+
+    div.image-container {
+      page-break-after: always;
+      break-after: always;
+    }
+
+    article {
+      padding: 1em;
+      /* page-break-before: always;
+      break-before: page;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact; */
+    }
+  </style>
+  <div class="image-container">
+    <img width="100%" height="100%" src={heroImage} alt={title} />
+  </div>
+  <article>
+    <div class="text-container">
+      <slot />
+    </div>
+  </article>
+  <script src="./helper.ts"></script>
+</BaseLayout>

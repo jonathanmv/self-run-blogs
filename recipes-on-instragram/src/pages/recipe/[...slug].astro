@@ -1,6 +1,5 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import Recipe from "../../layouts/Recipe.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("recipe");
@@ -15,6 +14,6 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Recipe {...post.data}>
-  <Content />
-</Recipe>
+<!-- <Recipe {...post.data}> -->
+<Content />
+<!-- </Recipe> -->

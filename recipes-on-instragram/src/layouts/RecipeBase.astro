@@ -1,0 +1,16 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+// 1. The frontmatter prop gives access to frontmatter and other data
+const { frontmatter } = Astro.props;
+---
+
+<html>
+  <head>
+    <!-- Add other Head elements here, like styles and meta tags. -->
+    <title>{frontmatter.title}</title>
+    <BaseHead {...frontmatter} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

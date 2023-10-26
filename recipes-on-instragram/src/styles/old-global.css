@@ -16,6 +16,20 @@
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
 }
+@font-face {
+	font-family: 'Atkinson';
+	src: url('/fonts/atkinson-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Atkinson';
+	src: url('/fonts/atkinson-bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
 
 body {
 	font-family: 'Montserrat', monospace, sans-serif;
@@ -30,7 +44,14 @@ body {
 	font-size: 12px;
 	line-height: 1.7;
 }
-
+nav, main {
+	width: 720px;
+	max-width: calc(100% - 2em);
+	margin: auto;
+}
+main{
+	padding: 1em;
+}
 h1,
 h2,
 h3,
@@ -61,6 +82,28 @@ h5 {
 	font-size: 1.25em;
 }
 
+/* Sizes for recipes */
+.prose h1 {
+	font-size: 2.052em;
+}
+.prose h2 {
+	font-size: 1.441em;
+}
+.prose h3 {
+	font-size: 0.953em;
+}
+.prose h4 {
+	font-size: 0.563em;
+}
+.prose h5 {
+	font-size: 0.25em;
+}
+.prose p {
+	margin-bottom: 2em;
+}
+.prose li, p {
+	text-align: justify;
+}
 
 strong,
 b {
@@ -121,6 +164,38 @@ li {
 	margin-bottom: 0.5em;
 }
 
+@media (max-width: 720px) {
+	body {
+		/* color: lime; */
+		/* background-color: red; */
+		font-size: 12px;
+	}
+	nav, main {
+		/* width: 100%;
+		max-width: 100%; */
+		/* background-color: green; */
+
+	}
+	.prose {
+		/* background-color: blue; */
+	}
+}
+
+@media print {
+	body {
+		font-size: 12px;
+		/* background-color: red; */
+	}
+	nav, main {
+		/* width: 100%;
+		max-width: 100%; */
+		/* background-color: green; */
+	}
+
+	.paper-margins {
+		/* display: none; */
+	}
+}
 
 .sr-only {
 	border: 0;
