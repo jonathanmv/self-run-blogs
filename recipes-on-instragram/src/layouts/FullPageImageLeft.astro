@@ -76,12 +76,11 @@ const today = new Date();
       </header>
       <article>
         <slot />
+        <footer>
+          Made for {madeFor} by COOKBOOKIA &copy; {today.getFullYear()}. All
+          rights reserved.
+        </footer>
       </article>
-
-      <footer>
-        Made for {madeFor} by COOKBOOKIA &copy; {today.getFullYear()}. All
-        rights reserved.
-      </footer>
     </div>
   </main>
 </BaseLayout>
