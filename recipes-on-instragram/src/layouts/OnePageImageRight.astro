@@ -1,0 +1,102 @@
+---
+import BaseLayout from "./RecipeBase.astro";
+const { title, madeFor, heroImage } = Astro.props.frontmatter;
+const props = Astro.props;
+const background = heroImage ? `url('${heroImage}')` : "none";
+const today = new Date();
+---
+
+<BaseLayout {...props}>
+  <style define:vars={{ background }}>
+    div.image-container {
+      background-image: var(--background);
+
+      /* Full height */
+      height: 100vh;
+
+      /* Center and scale the image nicely */
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      div.page {
+        /* background-color: violet; */
+      }
+      body {
+        /* background-color: aqua; */
+      }
+      footer {
+        display: block;
+      }
+    }
+
+    div.image-container {
+      float: left;
+      width: 50%;
+    }
+  </style>
+  <style>
+    header {
+      margin: 0;
+      margin-bottom: 4em;
+      border-bottom: 1px solid rgb(var(--gray-dark));
+    }
+
+    h1 {
+      margin: 0;
+      margin-bottom: 0.5em;
+      margin-left: 1em;
+      font-size: 1.6em;
+      letter-spacing: 0.5em;
+      font-weight: lighter;
+      text-align: left;
+    }
+
+    div.page {
+      float: right;
+      margin: 0.75in 0.5in 0.75in 0in;
+      width: calc(50% - 0.5in);
+      height: calc(100vh - 1.5in);
+    }
+
+    article {
+      padding-left: 2em;
+      height: calc(100% - 1in);
+      position: relative;
+    }
+
+    footer {
+      display: none;
+      text-align: center;
+      font-size: 0.8em;
+      color: rgb(var(--gray-dark));
+      position: absolute;
+      bottom: 1em;
+    }
+  </style>
+  <style is:global></style>
+
+  <main>
+    <div class="image-container"></div>
+    <div class="page">
+      <header>
+        <h1>{title}</h1>
+      </header>
+      <article>
+        <slot />
+        <footer>
+          Made for {madeFor} by COOKBOOKIA &copy; {today.getFullYear()}. All
+          rights reserved.
+        </footer>
+      </article>
+    </div>
+  </main>
+</BaseLayout>
