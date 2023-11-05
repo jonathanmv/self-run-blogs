@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build; npm start'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "LANGCHAIN_VERBOSE=true npm run start"
   },
   "keywords": [],
   "author": "",
