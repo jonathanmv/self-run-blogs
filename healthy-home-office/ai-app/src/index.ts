@@ -31,13 +31,27 @@
 //   .then(() => console.log("meals for day generator done"))
 //   .catch(console.error);
 
-import { run as mealsJsonStructured } from "./apps/meals-json-structured.js";
-mealsJsonStructured(
-  `
+// import { run as mealsJsonStructured } from "./apps/meals-json-structured.js";
+// mealsJsonStructured(
+//   `
+// I'm looking for a low-carb diet. I'm a 40 years old woman doing sports once or twice a week.
+// I don't eat meat, but I eat fish. I don't eat dairy products. I eat eggs and I love feta cheese and avocado.
+// `,
+//   "lunch"
+// )
+//   .then(() => console.log("meals for day generator done"))
+//   .catch(console.error);
+
+// import { run as withMemory } from "./apps/with-memory.js";
+// withMemory("ignored")
+//   .then(() => console.log("with memory done"))
+//   .catch(console.error);
+
+import { run as mealsWithMemory } from "./apps/meals-with-memory.js";
+const context = `
 I'm looking for a low-carb diet. I'm a 40 years old woman doing sports once or twice a week.
 I don't eat meat, but I eat fish. I don't eat dairy products. I eat eggs and I love feta cheese and avocado.
-`,
-  "lunch"
-)
-  .then(() => console.log("meals for day generator done"))
+`;
+mealsWithMemory(context)
+  .then(() => console.log("meals with memory done"))
   .catch(console.error);
