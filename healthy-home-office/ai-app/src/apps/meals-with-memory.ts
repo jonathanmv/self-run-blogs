@@ -3,26 +3,29 @@ import { BufferMemory } from "langchain/memory";
 import { ChatPromptTemplate, MessagesPlaceholder } from "langchain/prompts";
 import { RunnableSequence } from "langchain/schema/runnable";
 
-const template = `
-You are world-class chef that generates a recipes for a given meal of the day.
-This time, you will be creating a recipe for {meal}. You need to take into account
-your customer's dietary restrictions, food preferences, and other information about them.
-This information is given to you enclosed between """ below.
-
-Meals need to be varied and balanced. They need to be healthy and nutritious.
-
-"""
-{context}
-"""
-
+const recipeFormat = `
 Answer in the following format:
 
-Meal: {meal}
+Meal: The meal of the recipe, e.g. breakfast, lunch, dinner.
 Name: The name of the recipe.
 Ingredients: The ingredients of the recipe.
 Estimated time: The estimated time to cook the recipe.
-For You: A personalized message for the customer explaning why this {meal} recipe is perfect for them.
+For You: A personalized message for the customer explaning why this recipe is perfect for them.
 Instructions: The instructions for cooking the recipe.
+`;
+
+const template = `
+You are world-class chef. People come from all over the world to learn from you.
+In this ocassion, you are creating a meal for a customer.
+The customer trusts you to create the perfect meal for them, based on their dietary restrictions,
+food preferences, and other information they provide.
+
+When creating a meal, you need to review the previous meals you have created the customer,
+so that you can create a meal that is varied and balanced.
+You have a memory of all the meals you have created for the user. You avoid repeating ingredients
+and recipes that you have already used.
+
+${recipeFormat}
 `;
 
 // https://js.langchain.com/docs/expression_language/cookbook/adding_memory
@@ -31,8 +34,9 @@ export const run = async (context: string) => {
   const messagesPlaceholder = new MessagesPlaceholder("history");
   const prompt = ChatPromptTemplate.fromMessages([
     ["system", template],
+    ["human", context],
     messagesPlaceholder,
-    ["human", "{context}"],
+    ["human", "{input}"],
   ]);
 
   const memory = new BufferMemory({
@@ -42,24 +46,32 @@ export const run = async (context: string) => {
 
   const chain = RunnableSequence.from([
     {
-      meal: (input) => input.meal,
+      input: ({ input }) => input,
       memory: () => memory.loadMemoryVariables({}),
     },
     {
-      meal: (previousOutput) => previousOutput.meal,
-      context: () => context,
+      input: ({ input }) => input,
       history: (previousOutput) => previousOutput.memory.history,
+    },
+    {
+      ignored: async (output) => {
+        console.log(`This is the prompt:`);
+        console.log(await prompt.format(output));
+        console.log(`\n\n`);
+      },
+      input: ({ input }) => input,
+      history: ({ history }) => history,
     },
     prompt,
     model,
   ]);
 
-  const generateMeal = async (meal: string) => {
+  const generateMeal = async (input: string) => {
     const inputs = {
-      meal,
+      input,
     };
 
-    console.log(`Generating ${meal}...`);
+    console.log(`Sending ${input}...`);
     const response = await chain.invoke(inputs);
 
     console.log(response);
@@ -75,4 +87,5 @@ export const run = async (context: string) => {
   await generateMeal("breakfast");
   await generateMeal("lunch");
   await generateMeal("dinner");
+  await generateMeal("How many recipes did you generate?");
 };
